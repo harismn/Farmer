@@ -1,14 +1,21 @@
 'use strict';
-const Sequelize = require('sequelize');
-const bcryptService = require('../helpers/bcrypt.service');
+const Promise = require('bluebird')
+const bcrypt = Promise.promisifyAll(require("bcrypt-nodejs"))
 
+function hashPassword(user, options) {
+  const SALT_FACTOR = 8
 
-const hooks = {
-  beforeCreate(user) {
-    user.password = bcryptService().password(user); // eslint-disable-line no-param-reassign
-  },
-};
+  if (!user.changed("password")) {
+    return
+  }
 
+  return bcrypt
+    .genSaltAsync(SALT_FACTOR)
+    .then(salt => bcrypt.hashSync(user.password, salt, null))
+    .then(hash => {
+      user.setDataValue('password', hash)
+    })
+}
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('users', {
     full_name: {
@@ -18,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique : true,
     },
     password: {
       type: DataTypes.STRING,
@@ -27,11 +35,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    hash: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  },{ hooks});
+  }, {  
+  hooks :{
+    beforeCreate: hashPassword,
+    beforeUpdate: hashPassword,
+    beforeSave:hashPassword
+  }
+  });
+
+  User.prototype.comparePassword = function(password){
+    return bcrypt.compareAsync(password, this.password)
+  }
 
   User.associate = (models) => {
     // User.hasOne(models.access_tokens, {
