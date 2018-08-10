@@ -1,19 +1,16 @@
 'use strict';
-// module.exports = (sequelize, DataTypes) => {
-//   var user = sequelize.define('user', {
-//     full_name: DataTypes.STRING,
-//     email: DataTypes.STRING,
-//     password: DataTypes.STRING,
-//     phone: DataTypes.STRING,
-//     hash: DataTypes.STRING
-//   }, {});
-//   user.associate = function(models) {
-//     // associations can be defined here
-//   };
-//   return user;
-// };
+const Sequelize = require('sequelize');
+const bcryptService = require('../helpers/bcrypt.service');
+
+
+const hooks = {
+  beforeCreate(user) {
+    user.password = bcryptService().password(user); // eslint-disable-line no-param-reassign
+  },
+};
+
 module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define('user', {
+  const User = sequelize.define('users', {
     full_name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -34,14 +31,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  });
+  },{ hooks});
 
-  user.associate = (models) => {
-    // user.hasMany(models.TodoItem, {
-    //   foreignKey: 'userId',
-    //   as: 'userItems',
+  User.associate = (models) => {
+    // User.hasOne(models.access_tokens, {
+    //   foreignKey: 'user_id',
+    //   onDelete: 'CASCADE'
     // });
+    User.hasMany(models.authors, {
+      foreignKey: 'user_id',
+      onDelete: 'CASCADE'
+    });
   };
 
-  return user;
+  return User;
 };
