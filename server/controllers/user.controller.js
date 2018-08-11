@@ -1,10 +1,20 @@
 
-const { response} = require('../helpers/index');
-const { users: User} = require('../models/index');
+const { response } = require('../helpers/index');
+const{ users: User} = require('../models/index');
 const axios = require('axios');
-// const config = require('config');
+const config = require('../config/config');
+const jwtS = require('../config/configJwt')
+const jwt = require('jsonwebtoken')
 const Sequelize = require('sequelize');
 const { Op } = Sequelize;
+
+const jwtSignUser = (user) => {
+    const ONE_WEEK = 60 * 60 * 24 * 7
+    return jwt.sign(user, jwtS.authentication.jwtSecret, {
+        expiresIn: ONE_WEEK
+    })
+    console.log('helooo' + jwtSignUser)
+}
 
 
 console.log(User)
@@ -24,27 +34,23 @@ console.log("hahahhaha")
 //         }
 //     },
 // }
-const register = async (req, res) => {
- 
-
-    if (req.body.password ===req.body.password) {
-      try {
-        const user = await User.create({
-          email: req.body.email,
-          password:req.body.password,
-        });
-        const token = authService().issue({ id: user.id });
-
-        return res.status(200).json({ token, user });
-      } catch (err) {
-        console.log(err);
-        return res.status(500).json({ msg: 'Internal server error' });
-      }
+module.exports = {
+    async register (req, res) {
+        console.log(req.body)
+        try{
+            const user = await User.create(req.body)
+            const userJson = user.toJSON()
+            res.send({
+                user: userJson,
+                token : jwtSignUser(userJson)
+            })
+        } 
+    catch (err){
+        res.status(400).send({
+            error:err
+            
+        })
+console.log(err)
     }
-
-    return res.status(400).json({ msg: 'Bad Request: Passwords don\'t match' });
-};
-
-module.exports ={
-    register
-} 
+},
+}
