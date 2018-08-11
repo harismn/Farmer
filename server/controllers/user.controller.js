@@ -13,12 +13,10 @@ const jwtSignUser = (user) => {
     return jwt.sign(user, jwtS.authentication.jwtSecret, {
         expiresIn: ONE_WEEK
     })
-    console.log('helooo' + jwtSignUser)
 }
+console.log('===================>' + jwtSignUser)
 
 
-console.log(User)
-console.log("hahahhaha")
 // const list = {
 //     find: async (req, res) => {
 //         try {
@@ -36,7 +34,7 @@ console.log("hahahhaha")
 // }
 module.exports = {
     async register (req, res) {
-        console.log(req.body)
+        // console.log('================>' + req.body)
         try{
             const user = await User.create(req.body)
             const userJson = user.toJSON()
@@ -45,7 +43,7 @@ module.exports = {
                 token : jwtSignUser(userJson)
             })
         } 
-    catch (err){
+        catch (err){
         res.status(400).send({
             error:err
             
