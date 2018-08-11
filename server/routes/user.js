@@ -3,7 +3,7 @@ const usersController = require('../controllers/user.controller');
 const router = express.Router();
 
 router.route('/register').post(usersController.register);
-
+router.route('/login').post(usersController.login)
 
 // module.exports = (app) => {
 //   app.get('/api', (req, res) => res.status(200).send({

@@ -1,6 +1,6 @@
 
 const { response } = require('../helpers/index');
-const{ users: User} = require('../models/index');
+const { users: User } = require('../models/index');
 const axios = require('axios');
 const config = require('../config/config');
 const jwtS = require('../config/configJwt')
@@ -35,22 +35,57 @@ console.log("hahahhaha")
 //     },
 // }
 module.exports = {
-    async register (req, res) {
-        console.log(req.body)
-        try{
+    async register(req, res) {
+        try {
             const user = await User.create(req.body)
             const userJson = user.toJSON()
             res.send({
                 user: userJson,
-                token : jwtSignUser(userJson)
+                token: jwtSignUser(userJson)
             })
-        } 
-    catch (err){
-        res.status(400).send({
-            error:err
-            
-        })
-console.log(err)
+        }
+        catch (err) {
+            res.status(400).send({
+                error: err
+
+            })
+            console.log(err)
+        }
+    },
+
+    async login(req, res) {
+        console.log(req.body)
+        try {
+            const { email, password } = req.body
+            const user = await User.findOne({
+                where: {
+                    email: email
+                }
+            })
+
+            if (!user) {
+                return res.status(403).send({
+                    error: 'The login information was incorrect'
+                })
+            }
+            const isPasswordValid = await user.comparePassword(password)
+            if (!isPasswordValid) {
+                console.log(isPasswordValid)
+                return res.status(403).send({
+                    error: 'The login information was incorrect'
+                })
+            }
+
+            const userJson = user.toJSON()
+            res.send({
+                user: userJson,
+                token: jwtSignUser(userJson)
+            })
+        } catch (err) {
+            res.status(500).send({
+                error: 'An error has occured trying to log in'
+            })
+        }
+        console.log(err)
     }
-},
 }
