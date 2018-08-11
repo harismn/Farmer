@@ -13,12 +13,10 @@ const jwtSignUser = (user) => {
     return jwt.sign(user, jwtS.authentication.jwtSecret, {
         expiresIn: ONE_WEEK
     })
-    console.log('helooo' + jwtSignUser)
 }
+console.log('===================>' + jwtSignUser)
 
 
-console.log(User)
-console.log("hahahhaha")
 // const list = {
 //     find: async (req, res) => {
 //         try {
@@ -86,6 +84,12 @@ module.exports = {
                 error: 'An error has occured trying to log in'
             })
         }
-        console.log(err)
+
+        } 
+        catch (err){
+        res.status(400).send({
+            error:err
+            
+        })
     }
 }
