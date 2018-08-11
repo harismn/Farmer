@@ -1,4 +1,3 @@
-
 const { response } = require('../helpers/index');
 const { users: User } = require('../models/index');
 const axios = require('axios');
@@ -86,10 +85,4 @@ module.exports = {
         }
 
         } 
-        catch (err){
-        res.status(400).send({
-            error:err
-            
-        })
-    }
 }
