@@ -13,25 +13,20 @@ const jwtSignUser = (user) => {
         expiresIn: ONE_WEEK
     })
 }
-console.log('===================>' + jwtSignUser)
-
-
-// const list = {
-//     find: async (req, res) => {
-//         try {
-//             const user = await User.all();
-//             return res
-//             .status(200)
-//             .json(response(true, 'User retrieved successfully', user, null));
-//         } catch (error) {
-//             if (error.errors) {
-//                 return res.status(400).json(response(false, error.errors));
-//             }
-//             return res.status(400).json(response(false, error.message));
-//         }
-//     },
-// }
 module.exports = {
+     async list(req, res) {
+        try {
+            const user = await User.all()
+            return res
+            .status(200)
+            .json(response(true, 'User retrieved successfully', user, null));
+        } catch (error) {
+            if (error.errors) {
+                return res.status(400).json(response(false, error.errors));
+            }
+            return res.status(400).json(response(false, error.message));
+        }
+    },
     async register(req, res) {
         try {
             const user = await User.create(req.body)
@@ -46,30 +41,29 @@ module.exports = {
                 error: err
 
             })
-            console.log(err)
         }
     },
 
     async login(req, res) {
-        console.log(req.body)
         try {
             const { email, password } = req.body
             const user = await User.findOne({
                 where: {
-                    email: email
+                    email: email,
                 }
             })
 
             if (!user) {
+                console.log('================>' + user)
                 return res.status(403).send({
-                    error: 'The login information was incorrect'
+                    error:'The login user information was incorrect'
                 })
             }
             const isPasswordValid = await user.comparePassword(password)
             if (!isPasswordValid) {
-                console.log(isPasswordValid)
+                console.log('=============>' +isPasswordValid)
                 return res.status(403).send({
-                    error: 'The login information was incorrect'
+                    error: 'The login password information was incorrect'
                 })
             }
 

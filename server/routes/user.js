@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.route('/register').post(usersController.register);
 router.route('/login').post(usersController.login)
+router.route('/list',).get(usersController.list)
 
 // module.exports = (app) => {
 //   app.get('/api', (req, res) => res.status(200).send({

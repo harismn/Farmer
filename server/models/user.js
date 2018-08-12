@@ -1,16 +1,17 @@
 'use strict';
 const Promise = require('bluebird')
-const bcrypt = Promise.promisifyAll(require("bcrypt-nodejs"))
+const bcrypt = Promise.promisifyAll(require('bcrypt'))
 
+// console.log('====================>' + bcrypt);
 function hashPassword(user, options) {
   const SALT_FACTOR = 8
 
-  if (!user.changed("password")) {
+  if (!user.changed('password')) {
     return
   }
 
   return bcrypt
-    .genSaltAsync(SALT_FACTOR)
+    .genSaltSync(SALT_FACTOR)
     .then(salt => bcrypt.hashSync(user.password, salt, null))
     .then(hash => {
       user.setDataValue('password', hash)

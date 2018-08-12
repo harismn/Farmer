@@ -6,8 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       user_id:
         {
           allowNull: false,
-          autoIncrement: true,
-          primaryKey: true,
+          foreignKey: true,
           type: DataTypes.INTEGER,
           references:{
             model :'users',
@@ -26,6 +25,12 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'user_id',
       onDelete: 'CASCADE'
     });
+    Author.hasMany(models.articles, {
+      foreignKey: 'author_id',
+      onDelete: 'CASCADE'
+    });
   };
+
+
   return Author;
 };
