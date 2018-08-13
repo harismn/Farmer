@@ -1,11 +1,9 @@
 const express = require('express')
-const usersController = require('../controllers/user.controller');
+const articlesController = require('../controllers/article.controller');
 const router = express.Router();
 
-router.route('/register').post(usersController.register);
-router.route('/login').post(usersController.login)
-router.route('/list').get(usersController.list)
-
+router.route('/').get(articlesController.index);
+router.route('/create').post(articlesController.post);
 // module.exports = (app) => {
 //   app.get('/api', (req, res) => res.status(200).send({
 //     message: 'Welcome to the Todos API!',
