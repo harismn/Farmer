@@ -4,9 +4,12 @@ const Promise = require('bluebird')
 const bcrypt = require('bcrypt')
 // console.log('====================>' + bcrypt);
 function hashPassword(user, options) {
+  console.log('iki pass', user.password)
   const SALT_FACTOR = 8
   const salt = bcrypt.genSaltSync(SALT_FACTOR)
-  return  bcrypt.hashSync(password, salt, null)
+  const hash = bcrypt.hashSync(user.password, salt, null)
+ console.log(bcrypt.compareSync(user.password, hash))
+  return user.setDataValue('password', hash)
 }
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('users', {
@@ -31,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
   hooks :{
     beforeCreate: hashPassword,
     beforeUpdate: hashPassword,
-    beforeSave:hashPassword
+    // beforeSave:hashPassword
   }
   });
 

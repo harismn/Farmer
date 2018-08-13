@@ -9,5 +9,8 @@ const salt = bcrypt.genSaltSync(SALT_FACTOR)
   
 }
 
-const p = hashPassword("12345678")
+const p = hashPassword("123qwert")
 console.log(p)
+
+const isval = bcrypt.compareSync('123qwert', '$2b$08$wV9/hOYPss8Vat7WE9ntJ.y5FUZZ9z2G13NGYh001b3i5ihPoBXbG')
+console.log(isval)
