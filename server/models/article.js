@@ -1,7 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Article = sequelize.define('articles', {
-    author_id:{     
+  var Article = sequelize.define('articles', 
+  {
+
+    author_id:
+    {     
       allowNull: false,
       foreignKey: true,
       type: DataTypes.INTEGER,
@@ -25,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Article.associate = function(models) {
     // associations can be defined here
-    Article.belongsTo(models.authors, {
+    Article.belongsTo(models.users, {
       foreignKey: 'author_id',
       onDelete: 'CASCADE'
     });

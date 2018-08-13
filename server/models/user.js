@@ -1,21 +1,12 @@
 'use strict';
 const Promise = require('bluebird')
-const bcrypt = Promise.promisifyAll(require('bcrypt'))
-
+// const bcrypt = Promise.promisifyAll(require('bcrypt'))
+const bcrypt = require('bcrypt')
 // console.log('====================>' + bcrypt);
 function hashPassword(user, options) {
   const SALT_FACTOR = 8
-
-  if (!user.changed('password')) {
-    return
-  }
-
-  return bcrypt
-    .genSaltSync(SALT_FACTOR)
-    .then(salt => bcrypt.hashSync(user.password, salt, null))
-    .then(hash => {
-      user.setDataValue('password', hash)
-    })
+  const salt = bcrypt.genSaltSync(SALT_FACTOR)
+  return  bcrypt.hashSync(password, salt, null)
 }
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('users', {
@@ -45,6 +36,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.prototype.comparePassword = function(password){
+    console.log('password', password)
+
+    console.log('password', this.password)
     return bcrypt.compareSync(password, this.password)
   }
 
@@ -54,6 +48,10 @@ module.exports = (sequelize, DataTypes) => {
     //   onDelete: 'CASCADE'
     // });
     User.hasMany(models.authors, {
+      foreignKey: 'user_id',
+      onDelete: 'CASCADE'
+    });
+    User.hasMany(models.articles, {
       foreignKey: 'user_id',
       onDelete: 'CASCADE'
     });

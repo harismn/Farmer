@@ -50,15 +50,17 @@ module.exports = {
             const user = await User.findOne({
                 where: {
                     email: email,
-                }
+                },
+//raw:true
             })
-
+            
+            console.log('================>' ,user)
             if (!user) {
-                console.log('================>' + user)
                 return res.status(403).send({
                     error:'The login user information was incorrect'
                 })
             }
+            console.log('here')
             const isPasswordValid = await user.comparePassword(password)
             if (!isPasswordValid) {
                 console.log('=============>' +isPasswordValid)
