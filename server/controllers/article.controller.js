@@ -50,7 +50,7 @@ module.exports = {
       })
     }
   },
-  async put (req, res) {
+  async put(req, res) {
     try {
       await Article.update(req.body, {
         where: {
