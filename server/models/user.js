@@ -43,10 +43,6 @@ module.exports = (sequelize, DataTypes) => {
     // console.log('password', this.password)
 
   User.associate = (models) => {
-    User.hasMany(models.authors, {
-      foreignKey: 'user_id',
-      onDelete: 'CASCADE'
-    });
     User.hasMany(models.articles, {
       foreignKey: 'user_id',
       onDelete: 'CASCADE'
