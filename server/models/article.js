@@ -3,18 +3,18 @@ module.exports = (sequelize, DataTypes) => {
   var Article = sequelize.define('articles', 
   {
 
-    author_id:
-    {     
+    user_id:
+    {
       allowNull: false,
       foreignKey: true,
       type: DataTypes.INTEGER,
       references:{
-        model :'authors',
+        model :'users',
         key:'id'
       }
     },
     content:{ 
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     photo:{
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   Article.associate = function(models) {
     // associations can be defined here
     Article.belongsTo(models.users, {
-      foreignKey: 'author_id',
+      foreignKey: 'user_id',
       onDelete: 'CASCADE'
     });
   };

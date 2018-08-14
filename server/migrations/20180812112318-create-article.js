@@ -13,12 +13,12 @@ module.exports = {
         foreignKey: true,
         type: Sequelize.INTEGER,
         references: {
-          model: 'authors',
+          model: 'users',
           key: 'id'
         }
       },
       content: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false
       },
       photo: {
