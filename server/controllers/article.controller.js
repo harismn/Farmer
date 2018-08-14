@@ -1,7 +1,7 @@
-const {articles: Article} = require('../models/index')
+const { articles: Article } = require('../models/index')
 
 module.exports = {
-  async index (req, res) {
+  async index(req, res) {
     try {
       let articles = null
       const search = req.query.search
@@ -29,9 +29,19 @@ module.exports = {
       })
     }
   },
-  async post (req, res) {
+  async show(req, res) {
     try {
-      console.log(article)
+      // console.log(req.params)
+      const article = await Article.findById(req.params.id)
+      res.send(article)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to show the article'
+      })
+    }
+  },
+  async post(req, res) {
+    try {
       const article = await Article.create(req.body)
       res.send(article)
     } catch (err) {
@@ -40,4 +50,18 @@ module.exports = {
       })
     }
   },
+  async put (req, res) {
+    try {
+      await Article.update(req.body, {
+        where: {
+          id: req.params.id
+        }
+      })
+      res.send(req.body)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to update the song'
+      })
+    }
+  }
 }
