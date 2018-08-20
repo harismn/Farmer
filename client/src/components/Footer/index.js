@@ -1,7 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
-import { Switch, Route } from 'react-router-dom';
+// import { Switch, Route } from 'react-router-dom';
 
 class Footer extends React.Component {
     render() {
@@ -11,7 +9,7 @@ return (
         <div className="row">
           <div className="col s3"></div>
           <div className="col s6 center-align white-text">
-         itHealth
+         hahahahah
           </div>
           <div className="col s3"></div>
         </div>

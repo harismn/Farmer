@@ -1,38 +1,32 @@
 import React from 'react';
-// import { FormattedMessage } from 'react-intl';
+import meadow from '../../assets/bunga.jpg';
 
-// import { Switch, Route } from 'react-router-dom';
-import gambar from '../../assets/bunga.jpg';
+const Landing = () => {
+  return (
+    <section
+      id="hero"
+      className="blue lighten-4"
+      style={{ backgroundImage: 'url(' + meadow + ')' }}
+    >
+      <div className="container valign-wrapper jc-center">
+        <div className="valign center-align white-text">
+          <p className="flowtext hide-on-small-only">We give your business an internet presence</p>
+          <h3>
+            Develop, Deploy, Done
+          </h3>
 
-class Main extends React.Component {
-    render() {
-      return (
-        <section
-        
-          id="hero"
-          className="blue lighten-4" 
-          style={{ backgroundImage: 'url(' + gambar + ')' } }
-        >
-          <div className="container valign-wrapper jc-center">
-            <div className="valign center-align white-text">
-              <p className="flowtext hide-on-small-only">Info tentang pertanian sekarang bisa di akses dengan sentuhan jari</p>
-              <h3>
-                Selamat datang di InfoTani
-              </h3>
-    
-              <p className="big">
-                Apa yang ingin anda tanyakan kepada kami ?
-              </p>
-    
-              <a href="/patients/add-appointment" className="btn waves-light waves-effect">Make Appointment</a>
-              <a href='/service'className="btn waves-light waves-effect">service  </a>
-              <a href = 'medical-records'className="btn waves-light waves-effect">Medical records</a>
-              <a href='/billing' className="btn waves-light waves-effect">Billing   </a>
+          <p className="big">
+            We build your website using cutting edge frameworks
+            <br />
+            entirely customized and made to order
+          </p>
 
-            </div>
-          </div>
-        </section>
-      );
-    };
-  }    
-export default Main;
+          <a className="btn waves-light waves-effect m-r-16">Features</a>
+          <a className="btn waves-light waves-effect">Portfolio</a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Landing;

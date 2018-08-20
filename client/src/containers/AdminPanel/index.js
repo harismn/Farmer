@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import Header from '../../components/Header/index';
-import Landing from '../../components/Main/index';
-import Footer from '../../components/Footer/index';
-import News from '../../containers/LastestNews/index'
+
 
 const AppWrapper = styled.div`
   max-width: 100%;
@@ -19,10 +16,6 @@ class Homepage extends Component {
   render() {
     return (
       <AppWrapper>
-        <Header />
-        <Landing />
-        <News />
-        <Footer />
       </AppWrapper>
     );
   }
