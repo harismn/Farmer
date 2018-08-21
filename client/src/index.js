@@ -4,13 +4,13 @@ import './index.css';
 import Homepage from './containers/Homepage/index'
 import registerServiceWorker from './registerServiceWorker';
 import{ Route, BrowserRouter} from 'react-router-dom'
-import LoginPage from './containers/LoginPage/index'
+import Signin from './containers/Signin/index'
 
 const App = () => (
     <BrowserRouter>
       <div className="sans-serif">
         <Route path="/" component={Homepage} />
-        <Route path="/login" component={LoginPage} />
+        <Route path="/login" component={Signin} />
       </div>
     </BrowserRouter>
   );
