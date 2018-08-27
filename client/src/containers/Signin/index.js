@@ -1,31 +1,24 @@
 
-import React, { PureComponent } from 'react';
-import { Field, reduxForm } from 'redux-form';
-// import * as actions from '../../actions';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import styled from 'styled-components';
 
-import styled from 'styled-components'
-
-class Signin extends PureComponent {
-
+class Signin extends Component {
     render() {
-
         return (
             <form>
                 <fieldset className="form-group">
                     <label>Email:</label>
-                    <Field className="form-control" name="email" component="input" type="text" />
+                    <input className="form-control" name="email" component="input" type="text" />
                 </fieldset>
                 <fieldset className="form-group">
                     <label>Password:</label>
-                    <Field className="form-control" name="password" component="input" type="password" />
+                    <input className="form-control" name="password" component="input" type="password" />
                 </fieldset>
                 <button action="submit" className="btn btn-primary">Sign in</button>
             </form>
         );
     }
 }
-
 const AppWrapper = styled.div
 `max-width: 90%;
  margin:;
@@ -35,6 +28,4 @@ const AppWrapper = styled.div
  flex-direction: column;
  `;
 
- export default reduxForm({
-    form: 'signin'
-})
+export default Signin;

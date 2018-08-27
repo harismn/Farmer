@@ -1,21 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import Homepage from './containers/Homepage/index'
 import registerServiceWorker from './registerServiceWorker';
-import{ Route, BrowserRouter} from 'react-router-dom'
+import { Route, BrowserRouter, Switch } from 'react-router-dom'
 import Signin from './containers/Signin/index'
+import store from './store'
+import {Provider} from 'react-redux'
+import reducers from './reducers/index'
+import './App.css'
 
-const App = () => (
-    <BrowserRouter>
-      <div className="sans-serif">
-        <Route path="/" component={Homepage} />
+const App = <Provider store={store(reducers)}>
+  <BrowserRouter>
+    <Switch>
+   
+        <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Signin} />
-      </div>
-    </BrowserRouter>
-  );
+     
+    </Switch>
+  </BrowserRouter>
+  </Provider>
 
-
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(App, document.getElementById('root'));
 registerServiceWorker();
