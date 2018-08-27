@@ -5,19 +5,17 @@ import registerServiceWorker from './registerServiceWorker';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
 import Signin from './containers/Signin/index'
 import store from './store'
-import {Provider} from 'react-redux'
-import reducers from './reducers/index'
+import { Provider } from 'react-redux'
 import './App.css'
 
-const App = <Provider store={store(reducers)}>
-  <BrowserRouter>
-    <Switch>
-   
+const App =
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Signin} />
-     
-    </Switch>
-  </BrowserRouter>
+      </Switch>
+    </BrowserRouter>
   </Provider>
 
 ReactDOM.render(App, document.getElementById('root'));
