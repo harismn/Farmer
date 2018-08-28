@@ -4,7 +4,7 @@ const News = () => {
   return (
     <div className="blogpost">
         <div className="image-wrapper">
-          <img className="responsive-img" src="http://loremflickr.com/320/240" />
+          <img alt="" className="responsive-img" src="http://loremflickr.com/320/240" />
         </div>
         <div className="content">
           <h4>This is a standard post</h4>

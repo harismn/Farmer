@@ -1,15 +1,36 @@
-import { FETCH_ARTICLE } from '../constants/article'
+import { FETCH_ARTICLE, POST_ARTICLE } from '../constants/article'
 
-const INITIAL_STATE = {
-    article: null
+const initialState = {
+    article:[],
+    fetching: false,
+    fetched: false,
+    error: null,
+
 }
-export default function (state = INITIAL_STATE, action) {
+export default function (state = initialState, action) {
     switch (action.type) {
-        case FETCH_ARTICLE:
+        case 'FETCH_ARTICLE_FULFILLED': {
             return {
                 ...state,
-                article: action.payload
+                fetching: true,
+                article: action.payload.data
             };
+        }
+        // case 'FETCH_ARTICLE_REJECTED': {
+        //     return {
+        //         ...state,
+        //         fetching: false,
+        //         error: action.payload
+        //     }
+        // }
+        // case 'FETCH_ARTICLE_FULFILLED': {
+        //     return {
+        //         ...state,
+        //         fetching: false,
+        //         fetched: true,
+        //         tweets: action.payload,
+        //     }
+        // }
         default:
             return state;
     }

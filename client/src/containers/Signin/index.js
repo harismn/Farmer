@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 class Signin extends Component {
     render() {
@@ -19,13 +19,13 @@ class Signin extends Component {
         );
     }
 }
-const AppWrapper = styled.div
-`max-width: 90%;
- margin:;
- display: flex;
- min-height: 40%;
- padding: 1000;
- flex-direction: column;
- `;
+// const AppWrapper = styled.div
+// `max-width: 90%;
+//  margin:;
+//  display: flex;
+//  min-height: 40%;
+//  padding: 1000;
+//  flex-direction: column;
+//  `;
 
 export default Signin;

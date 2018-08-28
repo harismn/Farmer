@@ -1,4 +1,6 @@
-const FETCH_ARTICLE = 'fetch_article'
+const FETCH_ARTICLE = 'FETCH_ARTICLE'
+const POST_ARTICLE  = 'POST_ARTICLE'
 export {
-  FETCH_ARTICLE  
+  FETCH_ARTICLE,
+  POST_ARTICLE
 }
