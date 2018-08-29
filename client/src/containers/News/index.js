@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react'
 
-const News = () => {
+export default class News extends Component{
+  render(){
   return (
     <div className="blogpost">
         <div className="image-wrapper">
@@ -8,7 +9,7 @@ const News = () => {
         </div>
         <div className="content">
           <h4>This is a standard post</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, asperiores quod est tenetur in.</p>
+          <p>{(this.props.content).substr(0, 250)}</p>
         </div>
         <div className="footer">
           <div className="row">
@@ -28,5 +29,4 @@ const News = () => {
     </div>
   );
 };
-
-export default News;
+}

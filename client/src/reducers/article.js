@@ -8,7 +8,7 @@ export default function (state = INITIAL_STATE, action) {
         case FETCH_ARTICLE:
             return {
                 ...state,
-                article: action.payload
+                article: action.payload.data
             };
         default:
             return state;
